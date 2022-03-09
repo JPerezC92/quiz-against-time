@@ -1,3 +1,3 @@
 export interface ScorePlain {
-  score: number;
+  value: number;
 }

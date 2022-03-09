@@ -1,13 +1,12 @@
 import type { NextPage } from "next";
 
-import { Quiz } from "src/Quiz";
-import styles from "styles/Home.module.css";
+import { HomeScreen } from "src/Infrastructure/components/HomeScreen";
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.container}>
-      <Quiz />
-    </div>
+    <>
+      <HomeScreen />
+    </>
   );
 };
 
