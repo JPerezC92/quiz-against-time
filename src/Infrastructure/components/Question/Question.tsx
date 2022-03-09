@@ -36,7 +36,7 @@ export const Question: FC<QuestionProps> = ({ question }) => {
       </div>
 
       <ol>
-        {question.answers.map((answer) => (
+        {question.answerList.map((answer) => (
           <li
             key={answer.id}
             onClick={() =>

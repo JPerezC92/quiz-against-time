@@ -5,9 +5,9 @@ import { AnswerPlain } from "src/Domain/AnswerPlain";
 import { AnswerQuestion } from "src/Application/AnswerQuestion";
 import { Countdown } from "src/Domain/Countdown";
 import { CountdownPlain } from "src/Domain/CountdownPlain";
+import { Score } from "src/Domain/Score";
 import { ScorePlain } from "src/Domain/ScorePlain";
 import { useZustandQuizStore } from "../store/ZustandQuizStore";
-import { Score } from "src/Domain/Score";
 
 export const useAnswerQuestion = () => {
   const quizStore = useRef(useZustandQuizStore());

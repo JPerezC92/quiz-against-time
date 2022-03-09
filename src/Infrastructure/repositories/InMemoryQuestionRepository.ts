@@ -4,7 +4,7 @@ import { QuestionRepository } from "src/Domain/QuestionRepository";
 export const InMemoryQuestionRepository: QuestionRepository = {
   findAll: (): Question[] => {
     return [
-      new Question({
+      Question.new({
         value:
           "¿Cuál es la criatura que lleva más tiempo viviendo en la Tierra Media? ",
         answers: [
@@ -13,7 +13,7 @@ export const InMemoryQuestionRepository: QuestionRepository = {
           { value: "Sauron", isCorrect: false },
         ],
       }),
-      new Question({
+      Question.new({
         value:
           "¿Cuántas nominaciones a los Óscar recibió 'La Comunidad del Anillo'?",
         answers: [
@@ -23,7 +23,7 @@ export const InMemoryQuestionRepository: QuestionRepository = {
         ],
       }),
 
-      new Question({
+      Question.new({
         value:
           "En la película, ¿quién pronunció en el Concilio de Elrond la siguiente frase: “os hace falta gente inteligente para este tipo de... misión... cometido... cosa”?",
         answers: [

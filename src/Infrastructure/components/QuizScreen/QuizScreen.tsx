@@ -1,21 +1,25 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect } from "react";
 import Link from "next/link";
 
-import { InMemoryQuestionRepository } from "src/Infrastructure/InMemoryQuestionRepository";
 import { Question } from "../Question";
 import { useZustandViewQuizStore } from "src/Infrastructure/store/ZustandQuizStore";
+import { useFindQuestions } from "src/Infrastructure/hooks/useFindQuestions";
 
 export const QuizScreen: FC = React.memo(() => {
-  const { score } = useZustandViewQuizStore();
+  const { score, pollQuestion } = useZustandViewQuizStore();
+  const { findQuestionsRun } = useFindQuestions();
 
-  const [questions, setQuestions] = useState(
-    InMemoryQuestionRepository.findAll().map((question) => question.toPlain())
-  );
+  useEffect(() => {
+    findQuestionsRun();
+  }, [findQuestionsRun]);
 
   return (
     <div>
       <span>{score.value}</span>
-      <Question question={questions[0]} />
+
+      {pollQuestion.currentQuestion && (
+        <Question question={pollQuestion.currentQuestion} />
+      )}
 
       <Link href="/">Home</Link>
     </div>

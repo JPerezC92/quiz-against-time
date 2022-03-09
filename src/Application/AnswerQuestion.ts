@@ -15,13 +15,13 @@ export const AnswerQuestion: (props: {
 }) => UseCase<void, AnswerQuestionInput> = ({ quizStore }) => {
   return {
     execute: ({ countdown, answer, score }) => {
-      if (countdown.timeIsOver()) {
-      }
+      if (countdown.timeIsOver()) return;
 
-      if (answer.isCorrect) {
-        const scoreUpdated = score.addPoints(countdown);
-        quizStore.updateScore(scoreUpdated);
-      }
+      if (!answer.isCorrect) return;
+
+      const scoreUpdated = score.addPoints(countdown);
+
+      quizStore.updateScore(scoreUpdated);
     },
   };
 };
