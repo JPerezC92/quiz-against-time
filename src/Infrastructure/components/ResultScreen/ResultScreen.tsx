@@ -35,7 +35,6 @@ export const ResultScreen: FC<ResultScreenProps> = (props) => {
       <button
         onClick={() => {
           createRankRun({ name, score });
-          console.log("first");
           router.push("/ranking");
         }}
         type="button"
