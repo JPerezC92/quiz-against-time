@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { FC, useEffect } from "react";
 import { useFindRankings } from "src/Infrastructure/hooks/useFindRankings";
 import { useZustandViewRankingStore } from "src/Infrastructure/store/ZustandRankingStore";
@@ -18,14 +19,15 @@ export const RankingScreen: FC<RankingScreenProps> = (props) => {
   return (
     <>
       <h1>Ranking Screen</h1>
+      <Link href="/">home</Link>
 
-      <ul>
+      <ol>
         {rankingList.map((ranking, index) => (
           <li key={index}>
             {ranking.name} - {ranking.score.value}
           </li>
         ))}
-      </ul>
+      </ol>
     </>
   );
 };

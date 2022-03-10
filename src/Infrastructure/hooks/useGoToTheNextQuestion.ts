@@ -6,12 +6,12 @@ import { useZustandQuizStore } from "../store/ZustandQuizStore";
 export const useGoToTheNextQuestion = () => {
   const quizStore = useRef(useZustandQuizStore());
 
-  const goToTheNextQuestionRun = useCallback(() => {
+  const goToTheNextQuestionRun = useCallback(async () => {
     const goToTheNextQuestion = GoToTheNextQuestion({
       quizStore: quizStore.current,
     });
 
-    goToTheNextQuestion.execute();
+    await goToTheNextQuestion.execute();
   }, []);
 
   return {

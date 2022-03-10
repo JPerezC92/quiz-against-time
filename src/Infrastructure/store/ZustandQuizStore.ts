@@ -23,6 +23,8 @@ export const useZustandQuizStore = create<QuizStore & ViewQuizStore>(
       },
       score: Score.init().toPlain(),
       findPollQuestion: () => PollQuestion.fromPlain(get().pollQuestion),
+      initializePollQuestion: (questionList) =>
+        set({ pollQuestion: PollQuestion.new({ questionList }).toPlain() }),
       updateScore: (score) => set({ score: score.toPlain() }),
       updatePollQuestion: (pollQuestion) =>
         set({ pollQuestion: pollQuestion.toPlain() }),

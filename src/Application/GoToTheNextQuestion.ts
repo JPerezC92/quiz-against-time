@@ -3,11 +3,11 @@ import { UseCase } from "./UseCase";
 
 export const GoToTheNextQuestion: (props: {
   quizStore: QuizStore;
-}) => UseCase<void> = ({ quizStore }) => {
+}) => UseCase<Promise<void>> = ({ quizStore }) => {
   const pollQuestion = quizStore.findPollQuestion();
   return {
-    execute: () => {
-      const pollQuestionUpdated = pollQuestion.nextQuestion();
+    execute: async () => {
+      const pollQuestionUpdated = await pollQuestion.nextQuestion();
 
       quizStore.updatePollQuestion(pollQuestionUpdated);
     },

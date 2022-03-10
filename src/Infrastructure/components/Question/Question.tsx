@@ -40,7 +40,7 @@ export const Question: FC<QuestionProps> = ({ question }) => {
 
   useEffect(() => {
     if ((question?.wasAnswered || countdown.timeIsOver) && !isLastQuestion) {
-      setTimeout(() => goToTheNextQuestionRun(), timeoutBetweenQuestions);
+      goToTheNextQuestionRun();
     }
   }, [
     countdown.timeIsOver,

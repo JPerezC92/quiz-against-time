@@ -20,7 +20,7 @@ export const ResultScreen: FC<ResultScreenProps> = (props) => {
 
   return (
     <>
-      <h1>Ranking Screen</h1>
+      <h1>Result Screen</h1>
 
       <h1>Puntuacion: {score.value}</h1>
 

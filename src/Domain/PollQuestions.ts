@@ -49,10 +49,16 @@ export class PollQuestion {
     });
   }
 
-  public nextQuestion(): PollQuestion {
+  delay(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  public async nextQuestion(): Promise<PollQuestion> {
     const pollQuestion = this.toPlain();
     const nextQuestionIndex = this._nextQuestionIndex();
     const nextQuestion = pollQuestion.questionList[nextQuestionIndex];
+
+    await this.delay(3000);
 
     return PollQuestion.fromPlain({
       ...pollQuestion,

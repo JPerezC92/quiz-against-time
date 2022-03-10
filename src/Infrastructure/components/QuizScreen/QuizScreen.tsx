@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Question } from "../Question";
 import { useZustandViewQuizStore } from "src/Infrastructure/store/ZustandQuizStore";
-import { useFindQuestions } from "src/Infrastructure/hooks/useFindQuestions";
+import { useInitializeQuiz } from "src/Infrastructure/hooks/useInitializeQuiz";
 
 export const QuizScreen: FC = React.memo(() => {
   const {
@@ -11,11 +11,11 @@ export const QuizScreen: FC = React.memo(() => {
     pollQuestion: { currentQuestion },
   } = useZustandViewQuizStore();
 
-  const { findQuestionsRun } = useFindQuestions();
+  const { initializeQuizRun } = useInitializeQuiz();
 
   useEffect(() => {
-    findQuestionsRun();
-  }, [findQuestionsRun]);
+    initializeQuizRun();
+  }, [initializeQuizRun]);
 
   return (
     <div>
