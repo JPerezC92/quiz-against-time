@@ -16,7 +16,11 @@ interface ViewQuizStore {
 export const useZustandQuizStore = create<QuizStore & ViewQuizStore>(
   (set, get) => {
     return {
-      pollQuestion: { questionList: [], currentQuestionIndex: 0 },
+      pollQuestion: {
+        questionList: [],
+        currentQuestionIndex: 0,
+        isLastQuestion: false,
+      },
       score: Score.init().toPlain(),
       findPollQuestion: () => PollQuestion.fromPlain(get().pollQuestion),
       updateScore: (score) => set({ score: score.toPlain() }),
@@ -25,17 +29,6 @@ export const useZustandQuizStore = create<QuizStore & ViewQuizStore>(
     };
   }
 );
-
-// export const useZustandQuizStore2 = () => {
-//   const quizViewStore = useZustandQuizStore<QuizStore>(
-//     (state) => ({
-//       updateScore: state.updateScore,
-//     }),
-//     shallow
-//   );
-
-//   return quizViewStore;
-// };
 
 export const useZustandViewQuizStore = () => {
   const quizViewStore = useZustandQuizStore<ViewQuizStore>(

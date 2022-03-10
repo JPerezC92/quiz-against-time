@@ -9,6 +9,7 @@ import { useZustandViewQuizStore } from "src/Infrastructure/store/ZustandQuizSto
 
 import styles from "./Question.module.scss";
 import { useGoToTheNextQuestion } from "src/Infrastructure/hooks/useGoToTheNextQuestion";
+import { useRouter } from "next/router";
 
 type QuestionProps = {
   question: QuestionPlain;
@@ -17,6 +18,7 @@ type QuestionProps = {
 const timeoutBetweenQuestions = 3000;
 
 export const Question: FC<QuestionProps> = ({ question }) => {
+  const router = useRouter();
   const {
     score,
     pollQuestion: { isLastQuestion },
@@ -45,6 +47,18 @@ export const Question: FC<QuestionProps> = ({ question }) => {
     goToTheNextQuestionRun,
     isLastQuestion,
     question?.wasAnswered,
+  ]);
+
+  useEffect(() => {
+    if ((question?.wasAnswered || countdown.timeIsOver) && isLastQuestion) {
+      setTimeout(() => router.push("/quiz/result"), 3000);
+    }
+  }, [
+    countdown.timeIsOver,
+    goToTheNextQuestionRun,
+    isLastQuestion,
+    question?.wasAnswered,
+    router,
   ]);
 
   return (
