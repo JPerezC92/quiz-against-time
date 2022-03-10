@@ -8,25 +8,44 @@ import { useCountdown } from "src/Infrastructure/hooks/useCountdown";
 import { useZustandViewQuizStore } from "src/Infrastructure/store/ZustandQuizStore";
 
 import styles from "./Question.module.scss";
+import { useGoToTheNextQuestion } from "src/Infrastructure/hooks/useGoToTheNextQuestion";
 
 type QuestionProps = {
   question: QuestionPlain;
 };
 
-export const Question: FC<QuestionProps> = ({ question }) => {
-  const { score } = useZustandViewQuizStore();
+const timeoutBetweenQuestions = 3000;
 
-  const countdown = useCountdown({
+export const Question: FC<QuestionProps> = ({ question }) => {
+  const {
+    score,
+    pollQuestion: { isLastQuestion },
+  } = useZustandViewQuizStore();
+  const { aswerQuestionRun } = useAnswerQuestion();
+  const { goToTheNextQuestionRun } = useGoToTheNextQuestion();
+
+  const { countdown, stopCountdown, restartCountdown } = useCountdown({
     countdownPlain: CountdownEntity.new({ value: 10 }).toPlain(),
   });
 
-  const answerQuestion = useAnswerQuestion();
+  useEffect(() => {
+    if (question.wasAnswered) stopCountdown();
+  }, [question.wasAnswered, stopCountdown]);
 
   useEffect(() => {
-    if (countdown.timeIsOver) {
-      console.log("se termino el tiempo");
+    if (question.value) restartCountdown();
+  }, [question.value, restartCountdown]);
+
+  useEffect(() => {
+    if ((question?.wasAnswered || countdown.timeIsOver) && !isLastQuestion) {
+      setTimeout(() => goToTheNextQuestionRun(), timeoutBetweenQuestions);
     }
-  }, [countdown.timeIsOver]);
+  }, [
+    countdown.timeIsOver,
+    goToTheNextQuestionRun,
+    isLastQuestion,
+    question?.wasAnswered,
+  ]);
 
   return (
     <>
@@ -40,13 +59,14 @@ export const Question: FC<QuestionProps> = ({ question }) => {
           <li
             key={answer.id}
             onClick={() =>
-              answerQuestion.run({
+              aswerQuestionRun({
                 answerPlain: answer,
                 countdownPlain: countdown,
                 scorePlain: score,
               })
             }
           >
+            {question.wasAnswered && <>{`${answer.isCorrect}`}</>}{" "}
             {answer.value}
           </li>
         ))}

@@ -13,15 +13,20 @@ interface AnswerQuestionInput {
 export const AnswerQuestion: (props: {
   quizStore: QuizStore;
 }) => UseCase<void, AnswerQuestionInput> = ({ quizStore }) => {
+  const pollQuestion = quizStore.findPollQuestion();
+
   return {
     execute: ({ countdown, answer, score }) => {
       if (countdown.timeIsOver()) return;
+      if (pollQuestion.currentQuestion?.wasAnswered) return;
 
-      if (!answer.isCorrect) return;
+      if (answer.isCorrect) {
+        const scoreUpdated = score.addPoints(countdown);
+        quizStore.updateScore(scoreUpdated);
+      }
 
-      const scoreUpdated = score.addPoints(countdown);
-
-      quizStore.updateScore(scoreUpdated);
+      const pollQuestionUpdated = pollQuestion.answerQuestion(answer);
+      quizStore.updatePollQuestion(pollQuestionUpdated);
     },
   };
 };

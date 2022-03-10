@@ -1,3 +1,4 @@
+import { Answer } from "./Answer";
 import { PollQuestionsPlain } from "./PollQuestionsPlain";
 import { Question } from "./Question";
 
@@ -35,19 +36,36 @@ export class PollQuestion {
     });
   }
 
-  public nextQuestion(): PollQuestion {
-    const question = this.toPlain();
-    const nextQuestionIndex = this.nextQuestionIndex();
-    const nextQuestion = question.questionList[nextQuestionIndex];
+  public answerQuestion(answer: Answer): PollQuestion {
+    if (!this.currentQuestion) return this;
+
+    this.questionList[this.currentQuestionIndex] =
+      this.currentQuestion?.answerQuestion(answer);
+    const pollQuestion = this.toPlain();
 
     return PollQuestion.fromPlain({
-      ...question,
-      currentQuestionIndex: this.nextQuestionIndex(),
+      ...pollQuestion,
+      questionList: this.questionList,
+    });
+  }
+
+  public nextQuestion(): PollQuestion {
+    const pollQuestion = this.toPlain();
+    const nextQuestionIndex = this._nextQuestionIndex();
+    const nextQuestion = pollQuestion.questionList[nextQuestionIndex];
+
+    return PollQuestion.fromPlain({
+      ...pollQuestion,
+      currentQuestionIndex: nextQuestionIndex,
       currentQuestion: nextQuestion,
     });
   }
 
-  private nextQuestionIndex(): number {
+  public isLastQuestion(): boolean {
+    return this.currentQuestionIndex === this.questionList.length - 1;
+  }
+
+  private _nextQuestionIndex(): number {
     return this.currentQuestionIndex + 1;
   }
 
@@ -56,6 +74,7 @@ export class PollQuestion {
       questionList: this.questionList.map((question) => question.toPlain()),
       currentQuestion: this.currentQuestion?.toPlain(),
       currentQuestionIndex: this.currentQuestionIndex,
+      isLastQuestion: this.isLastQuestion(),
     };
   }
 }

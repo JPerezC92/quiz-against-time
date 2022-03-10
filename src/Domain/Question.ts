@@ -19,6 +19,15 @@ export class Question {
     this.wasAnswered = props.wasAnswered;
   }
 
+  public answerQuestion(answer: Answer): Question {
+    const plainQuestion = this.toPlain();
+
+    return Question.fromPlain({
+      ...plainQuestion,
+      wasAnswered: true,
+    });
+  }
+
   static new(props: {
     value: string;
     answers: Omit<AnswerPlain, "id">[];

@@ -4,4 +4,5 @@ export interface PollQuestionsPlain {
   questionList: QuestionPlain[];
   currentQuestion?: QuestionPlain;
   currentQuestionIndex: number;
+  isLastQuestion: boolean;
 }

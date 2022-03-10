@@ -12,7 +12,7 @@ import { useZustandQuizStore } from "../store/ZustandQuizStore";
 export const useAnswerQuestion = () => {
   const quizStore = useRef(useZustandQuizStore());
 
-  const run: (props: {
+  const aswerQuestionRun: (props: {
     answerPlain: AnswerPlain;
     countdownPlain: CountdownPlain;
     scorePlain: ScorePlain;
@@ -27,6 +27,6 @@ export const useAnswerQuestion = () => {
   }, []);
 
   return {
-    run,
+    aswerQuestionRun,
   };
 };

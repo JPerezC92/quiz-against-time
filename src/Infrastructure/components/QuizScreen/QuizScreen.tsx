@@ -6,7 +6,11 @@ import { useZustandViewQuizStore } from "src/Infrastructure/store/ZustandQuizSto
 import { useFindQuestions } from "src/Infrastructure/hooks/useFindQuestions";
 
 export const QuizScreen: FC = React.memo(() => {
-  const { score, pollQuestion } = useZustandViewQuizStore();
+  const {
+    score,
+    pollQuestion: { currentQuestion },
+  } = useZustandViewQuizStore();
+
   const { findQuestionsRun } = useFindQuestions();
 
   useEffect(() => {
@@ -17,9 +21,7 @@ export const QuizScreen: FC = React.memo(() => {
     <div>
       <span>{score.value}</span>
 
-      {pollQuestion.currentQuestion && (
-        <Question question={pollQuestion.currentQuestion} />
-      )}
+      {currentQuestion && <Question question={currentQuestion} />}
 
       <Link href="/">Home</Link>
     </div>

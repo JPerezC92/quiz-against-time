@@ -31,6 +31,10 @@ export class Countdown {
     return new Countdown({ value: this._value, remaining: this.remaining - 1 });
   }
 
+  public restart(): Countdown {
+    return Countdown.new({ value: this._value });
+  }
+
   public toPlain(): CountdownPlain {
     return {
       value: this._value,

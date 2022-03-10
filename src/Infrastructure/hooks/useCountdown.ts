@@ -1,18 +1,28 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Countdown } from "src/Domain/Countdown";
 import { CountdownPlain } from "src/Domain/CountdownPlain";
 
 const seconds = 1000;
 
-export const useCountdown: (props: {
-  countdownPlain: CountdownPlain;
-}) => CountdownPlain = ({ countdownPlain }) => {
+export const useCountdown: (props: { countdownPlain: CountdownPlain }) => {
+  countdown: CountdownPlain;
+  stopCountdown: () => void;
+  restartCountdown: () => void;
+} = ({ countdownPlain }) => {
   const [countdown, setCountdown] = useState(countdownPlain);
+
+  const [isStopped, setIsStopped] = useState(false);
+
+  const stopCountdown = useCallback(() => setIsStopped(() => true), []);
+  const restartCountdown = useCallback(() => {
+    setIsStopped(() => false);
+    setCountdown((c) => Countdown.fromPlain(c).restart().toPlain());
+  }, []);
 
   useEffect(() => {
     let interval: NodeJS.Timer;
 
-    if (!countdown.timeIsOver) {
+    if (!countdown.timeIsOver && !isStopped) {
       interval = setInterval(() => {
         setCountdown((prevCountdownPlain) =>
           Countdown.fromPlain(prevCountdownPlain).tick().toPlain()
@@ -23,7 +33,7 @@ export const useCountdown: (props: {
     return () => {
       clearInterval(interval);
     };
-  }, [countdown.timeIsOver]);
+  }, [countdown.timeIsOver, isStopped]);
 
-  return countdown;
+  return { countdown, stopCountdown, restartCountdown };
 };
