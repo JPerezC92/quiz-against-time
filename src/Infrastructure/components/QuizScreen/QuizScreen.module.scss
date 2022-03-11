@@ -1,2 +1,6 @@
-.QuizScreen {
+@use "../../../../styles/Headings.scss";
+
+.Header {
+  display: flex;
+  justify-content: space-between;
 }

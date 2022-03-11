@@ -10,14 +10,16 @@ import { useZustandViewQuizStore } from "src/Infrastructure/store/ZustandQuizSto
 import styles from "./Question.module.scss";
 import { useGoToTheNextQuestion } from "src/Infrastructure/hooks/useGoToTheNextQuestion";
 import { useRouter } from "next/router";
+import { CountdownPlain } from "src/Domain/CountdownPlain";
 
 type QuestionProps = {
   question: QuestionPlain;
+  countdown: CountdownPlain;
 };
 
 const timeoutBetweenQuestions = 3000;
 
-export const Question: FC<QuestionProps> = ({ question }) => {
+export const Question: FC<QuestionProps> = ({ question, countdown }) => {
   const router = useRouter();
   const {
     score,
@@ -25,18 +27,6 @@ export const Question: FC<QuestionProps> = ({ question }) => {
   } = useZustandViewQuizStore();
   const { aswerQuestionRun } = useAnswerQuestion();
   const { goToTheNextQuestionRun } = useGoToTheNextQuestion();
-
-  const { countdown, stopCountdown, restartCountdown } = useCountdown({
-    countdownPlain: CountdownEntity.new({ value: 10 }).toPlain(),
-  });
-
-  useEffect(() => {
-    if (question.wasAnswered) stopCountdown();
-  }, [question.wasAnswered, stopCountdown]);
-
-  useEffect(() => {
-    if (question.value) restartCountdown();
-  }, [question.value, restartCountdown]);
 
   useEffect(() => {
     if ((question?.wasAnswered || countdown.timeIsOver) && !isLastQuestion) {
@@ -64,8 +54,7 @@ export const Question: FC<QuestionProps> = ({ question }) => {
   return (
     <>
       <div>
-        <span>{question.value}</span>
-        <Countdown countdown={countdown} />
+        <span className={`${styles.Title_3}`}>{question.value}</span>
       </div>
 
       <ol>
@@ -80,7 +69,7 @@ export const Question: FC<QuestionProps> = ({ question }) => {
               })
             }
           >
-            {question.wasAnswered && <>{`${answer.isCorrect}`}</>}{" "}
+            {question.wasAnswered && <>{`${answer.isCorrect}`}</>}
             {answer.value}
           </li>
         ))}
