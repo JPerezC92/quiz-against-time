@@ -1,0 +1,36 @@
+.MainLayout {
+  background-color: #070707;
+  display: grid;
+  height: 100vh;
+  padding: 2rem;
+  width: 100vw;
+
+  .Container {
+    border-radius: 1rem;
+    margin: auto;
+    position: relative;
+    max-width: 1366px;
+    max-height: 768px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 2rem;
+
+    background-image: url("/home-background.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 2rem rgba(214, 183, 125, 0.25);
+  }
+
+  .MainContent {
+    padding: 2rem;
+    margin: auto auto;
+    background: rgba(214, 183, 125, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(214, 183, 125, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+}

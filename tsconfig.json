@@ -18,6 +18,8 @@
     "paths": {
       // example
       // "@Auth/*": ["src/Auth/*"]
+      "@Public/*": ["public/*"],
+      "@Styles/*": ["styles/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
