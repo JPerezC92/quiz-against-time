@@ -4,10 +4,10 @@ import Link from "next/link";
 import { Question } from "../Question";
 import { useZustandViewQuizStore } from "src/Infrastructure/store/ZustandQuizStore";
 import { useInitializeQuiz } from "src/Infrastructure/hooks/useInitializeQuiz";
-import styles from "./QuizScreen.module.scss";
 import { QuizLayout } from "../QuizLayout";
 import { useCountdown } from "src/Infrastructure/hooks/useCountdown";
 import { Countdown } from "src/Domain/Countdown";
+import styles from "./QuizScreen.module.scss";
 
 export const QuizScreen: FC = React.memo(() => {
   const {

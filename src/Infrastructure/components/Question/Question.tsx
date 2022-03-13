@@ -1,23 +1,18 @@
 import React, { FC, useEffect } from "react";
 
-import { Countdown } from "../Countdown";
-import { Countdown as CountdownEntity } from "src/Domain/Countdown";
+import { CountdownPlain } from "src/Domain/CountdownPlain";
 import { QuestionPlain } from "src/Domain/QuestionPlain";
 import { useAnswerQuestion } from "src/Infrastructure/hooks/useAnswerQuestion";
-import { useCountdown } from "src/Infrastructure/hooks/useCountdown";
+import { useGoToTheNextQuestion } from "src/Infrastructure/hooks/useGoToTheNextQuestion";
+import { useRouter } from "next/router";
 import { useZustandViewQuizStore } from "src/Infrastructure/store/ZustandQuizStore";
 
 import styles from "./Question.module.scss";
-import { useGoToTheNextQuestion } from "src/Infrastructure/hooks/useGoToTheNextQuestion";
-import { useRouter } from "next/router";
-import { CountdownPlain } from "src/Domain/CountdownPlain";
 
 type QuestionProps = {
   question: QuestionPlain;
   countdown: CountdownPlain;
 };
-
-const timeoutBetweenQuestions = 3000;
 
 export const Question: FC<QuestionProps> = ({ question, countdown }) => {
   const router = useRouter();
@@ -57,21 +52,35 @@ export const Question: FC<QuestionProps> = ({ question, countdown }) => {
         <span className={`${styles.Title_3}`}>{question.value}</span>
       </div>
 
-      <ol>
-        {question.answerList.map((answer) => (
-          <li
-            key={answer.id}
-            onClick={() =>
-              aswerQuestionRun({
-                answerPlain: answer,
-                countdownPlain: countdown,
-                scorePlain: score,
-              })
-            }
-          >
-            {question.wasAnswered && <>{`${answer.isCorrect}`}</>}
-            {answer.value}
-          </li>
+      <ol className={styles.Question_answerList}>
+        {question.answerList.map((answer, index) => (
+          <>
+            {question.wasAnswered || countdown.timeIsOver ? (
+              <li
+                className={`${styles.Question_answer} ${
+                  answer.isCorrect
+                    ? styles.Question_border_lime
+                    : styles.Question_border_orange
+                }`}
+              >
+                {answer.value}
+              </li>
+            ) : (
+              <li
+                className={`${styles.Question_answer}`}
+                key={answer.id}
+                onClick={() =>
+                  aswerQuestionRun({
+                    answerPlain: answer,
+                    countdownPlain: countdown,
+                    scorePlain: score,
+                  })
+                }
+              >
+                {answer.value}
+              </li>
+            )}
+          </>
         ))}
       </ol>
     </>

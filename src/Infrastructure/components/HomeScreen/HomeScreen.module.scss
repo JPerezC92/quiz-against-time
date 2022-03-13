@@ -1,25 +1,10 @@
 @use "../../../../styles/Headings.scss";
+@use "../../../../styles/Buttons.scss";
+
 $color-ring: #d6b77d;
 
 .ButtonsContainer {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-
-.Button {
-  background-color: #11121c;
-  border-radius: 1rem;
-  box-shadow: 0 0 8px #fff;
-  color: #fff;
-  font-size: 1.5rem;
-  padding: 0.5rem;
-  text-align: center;
-}
-
-.Button:hover {
-  background-color: #fff;
-  box-shadow: 0 0 8px #e7431e;
-  color: #e7431e;
-  font-weight: bold;
 }

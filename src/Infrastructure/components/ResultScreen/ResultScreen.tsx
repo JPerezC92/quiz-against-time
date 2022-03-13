@@ -1,8 +1,9 @@
-import { useRouter } from "next/router";
 import React, { ChangeEventHandler, FC, useState } from "react";
+import { useRouter } from "next/router";
 import { useCreateRank } from "src/Infrastructure/hooks/useCreateRank";
 
 import { useZustandViewQuizStore } from "src/Infrastructure/store/ZustandQuizStore";
+import { MainLayout } from "../MainLayout";
 
 import styles from "./ResultScreen.module.scss";
 
@@ -19,20 +20,23 @@ export const ResultScreen: FC<ResultScreenProps> = (props) => {
   };
 
   return (
-    <>
-      <h1>Result Screen</h1>
+    <MainLayout>
+      <h2 className={styles.Title_2}>Puntuacion: {score.value}</h2>
 
-      <h1>Puntuacion: {score.value}</h1>
+      <label htmlFor="name" className={styles.Title_3}>
+        Introduce tu nombre :{" "}
+        <input
+          className={styles.Input}
+          onChange={handleOnChange}
+          type="text"
+          name="name"
+          id="name"
+          value={name}
+        />
+      </label>
 
-      <label htmlFor="name">Introduce un nombre</label>
-      <input
-        onChange={handleOnChange}
-        type="text"
-        name="name"
-        id="name"
-        value={name}
-      />
       <button
+        className={styles.Button}
         onClick={() => {
           createRankRun({ name, score });
           router.push("/ranking");
@@ -41,6 +45,6 @@ export const ResultScreen: FC<ResultScreenProps> = (props) => {
       >
         Guardar
       </button>
-    </>
+    </MainLayout>
   );
 };
