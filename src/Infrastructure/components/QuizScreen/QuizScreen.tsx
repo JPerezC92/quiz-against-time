@@ -11,12 +11,12 @@ import styles from "./QuizScreen.module.scss";
 export const QuizScreen: FC = React.memo(() => {
   const {
     score,
-    pollQuestion: { currentQuestion },
+    pollQuestion: { currentQuestion, currentQuestionIndex },
   } = useZustandViewQuizStore();
   const { initializeQuizRun } = useInitializeQuiz();
 
   const countdown = useCountdown({
-    countdownPlain: Countdown.new({ value: 10 }).toPlain(),
+    countdownPlain: Countdown.new({ value: 30 }).toPlain(),
   });
 
   useEffect(() => {

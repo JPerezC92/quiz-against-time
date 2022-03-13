@@ -1,6 +1,7 @@
 import { Rank } from "src/Domain/Rank";
 import { RankingRepository } from "src/Domain/RankingRepository";
 import { RankPlain } from "src/Domain/RankPlain";
+
 const sortDescending = (a: RankPlain, b: RankPlain) => {
   return b.score.value - a.score.value;
 };

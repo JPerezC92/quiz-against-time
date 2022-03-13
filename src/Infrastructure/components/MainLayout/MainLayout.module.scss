@@ -41,3 +41,12 @@
     border: 1px solid rgba(255, 255, 255, 0.18);
   }
 }
+
+@media screen and (max-width: 400px) {
+  .MainLayout {
+    padding: 0;
+    .Container {
+      border-radius: 0;
+    }
+  }
+}

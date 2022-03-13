@@ -22,7 +22,7 @@ export const Question: FC<QuestionProps> = ({
   const router = useRouter();
   const {
     score,
-    pollQuestion: { isLastQuestion },
+    pollQuestion: { isLastQuestion, currentQuestionIndex },
   } = useZustandViewQuizStore();
 
   const { aswerQuestionRun } = useAnswerQuestion();
@@ -62,7 +62,9 @@ export const Question: FC<QuestionProps> = ({
   return (
     <>
       <div className={styles.Question}>
-        <Text>{question.value}</Text>
+        <Text>
+          {currentQuestionIndex + 1}. {question.value}
+        </Text>
       </div>
 
       <ol className={styles.Question_answerList}>
