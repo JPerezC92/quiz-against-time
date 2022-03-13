@@ -1,4 +1,7 @@
-@use "../../../../styles/Headings.scss";
+@use "../../../../styles/Typography.scss";
+.Question {
+  color: #fff;
+}
 
 .Question_answerList {
   display: flex;

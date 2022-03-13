@@ -1,12 +1,11 @@
 import React, { FC, useEffect } from "react";
-import Link from "next/link";
 
+import { Countdown } from "src/Domain/Countdown";
 import { Question } from "../Question";
-import { useZustandViewQuizStore } from "src/Infrastructure/store/ZustandQuizStore";
-import { useInitializeQuiz } from "src/Infrastructure/hooks/useInitializeQuiz";
 import { QuizLayout } from "../QuizLayout";
 import { useCountdown } from "src/Infrastructure/hooks/useCountdown";
-import { Countdown } from "src/Domain/Countdown";
+import { useInitializeQuiz } from "src/Infrastructure/hooks/useInitializeQuiz";
+import { useZustandViewQuizStore } from "src/Infrastructure/store/ZustandQuizStore";
 import styles from "./QuizScreen.module.scss";
 
 export const QuizScreen: FC = React.memo(() => {
@@ -15,7 +14,8 @@ export const QuizScreen: FC = React.memo(() => {
     pollQuestion: { currentQuestion },
   } = useZustandViewQuizStore();
   const { initializeQuizRun } = useInitializeQuiz();
-  const { countdown, stopCountdown, restartCountdown } = useCountdown({
+
+  const countdown = useCountdown({
     countdownPlain: Countdown.new({ value: 10 }).toPlain(),
   });
 
@@ -23,21 +23,15 @@ export const QuizScreen: FC = React.memo(() => {
     initializeQuizRun();
   }, [initializeQuizRun]);
 
-  useEffect(() => {
-    if (currentQuestion?.wasAnswered) stopCountdown();
-  }, [currentQuestion?.wasAnswered, stopCountdown]);
-
-  useEffect(() => {
-    if (currentQuestion?.value) restartCountdown();
-  }, [currentQuestion?.value, restartCountdown]);
-
   return (
     <>
       <QuizLayout>
         <header className={`${styles.Header}`}>
           <h1 className={`${styles.Title_2}`}>Score: {score.value}</h1>
 
-          <h2 className={`${styles.Title_2}`}>Tiempo: {countdown.remaining}</h2>
+          <h2 className={`${styles.Title_2}`}>
+            Tiempo: {countdown.countdown?.remaining}
+          </h2>
         </header>
 
         <hr />

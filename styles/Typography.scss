@@ -1,26 +1,30 @@
 .Title {
   color: #fff;
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: bold;
   text-align: center;
   text-shadow: 0 0 10px #e7431e;
-  // margin-bottom: 0.5;
 }
 
 .Title_2 {
   color: #fff;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: bold;
   text-align: center;
   text-shadow: 0 0 10px #e7431e;
-  // margin-bottom: 0.1rem;
 }
 
-.Title_3 {
+.Label {
   color: #fff;
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
   text-shadow: 0 0 10px #e7431e;
-  // margin-bottom: 1rem;
+}
+
+.Text {
+  letter-spacing: 0.2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 0 0 1rem rgba(214, 183, 125, 1);
 }

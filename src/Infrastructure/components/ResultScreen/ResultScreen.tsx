@@ -6,6 +6,7 @@ import { useZustandViewQuizStore } from "src/Infrastructure/store/ZustandQuizSto
 import { MainLayout } from "../MainLayout";
 
 import styles from "./ResultScreen.module.scss";
+import { Text } from "src/Infrastructure/components/Text";
 
 type ResultScreenProps = {};
 
@@ -23,8 +24,8 @@ export const ResultScreen: FC<ResultScreenProps> = (props) => {
     <MainLayout>
       <h2 className={styles.Title_2}>Puntuacion: {score.value}</h2>
 
-      <label htmlFor="name" className={styles.Title_3}>
-        Introduce tu nombre :{" "}
+      <label htmlFor="name" className={styles.Label}>
+        <Text>Introduce tu nombre : </Text>
         <input
           className={styles.Input}
           onChange={handleOnChange}

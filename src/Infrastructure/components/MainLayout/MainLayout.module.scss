@@ -1,6 +1,6 @@
 .MainLayout {
   background-color: #070707;
-  display: grid;
+  display: flex;
   height: 100vh;
   padding: 2rem;
   width: 100vw;
@@ -24,12 +24,14 @@
   }
 
   .MainContent {
-    padding: 2rem;
-    margin: auto auto;
-
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
+    margin: auto auto;
+    min-width: min(80%, 20rem);
+    max-width: min(100%, 30rem);
+    padding: 2rem;
+    overflow: hidden;
 
     background: rgba(214, 183, 125, 0.25);
     box-shadow: 0 8px 32px 0 rgba(214, 183, 125, 0.25);

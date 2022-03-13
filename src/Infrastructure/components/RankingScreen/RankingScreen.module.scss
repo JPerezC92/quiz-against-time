@@ -1,1 +1,7 @@
-@use "../../../../styles/Headings.scss";
+@use "../../../../styles/Typography.scss";
+@use "../../../../styles/Buttons.scss";
+
+.RankingList {
+  text-align: center;
+  color: #fff;
+}
