@@ -11,7 +11,7 @@ import styles from "./QuizScreen.module.scss";
 export const QuizScreen: FC = React.memo(() => {
   const {
     score,
-    pollQuestion: { currentQuestion, currentQuestionIndex },
+    pollQuestion: { currentQuestion },
   } = useZustandViewQuizStore();
   const { initializeQuizRun } = useInitializeQuiz();
 
